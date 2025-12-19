@@ -1,1 +1,2 @@
+Using Python to create trading strategies, like the simple moving average and Donchian, with stock data to optimize trading signals for the best returns, and visualizing results for documentation and presentation.
 
