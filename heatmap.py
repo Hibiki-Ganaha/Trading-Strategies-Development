@@ -14,7 +14,9 @@ data = np.random.random((12,12))
 ## Heading
 st.sidebar.markdown("# 📊 Black-Scholes Model")
 st.sidebar.markdown(":green[Created By:]")
-st.sidebar.badge("Alexander Seo", color="blue")
+col1, col2 = st.sidebar.columns(2, gap=None)
+col1.image("linkedinlogo.png", width=30)
+col2.page_link("https://www.linkedin.com/in/alexanderminhseo/", label="Alexander Seo")
 
 ## Inputs
 current_asset_price = st.sidebar.number_input("Current Asset Price", min_value=0.00, value=100.00, step=1.00)
@@ -35,8 +37,8 @@ max_volatility = st.sidebar.slider("Max. Volatility for Heatmap", min_value=0.00
 ## Header
 st.title("Black-Scholes Pricing Model")
 var_df = pd.DataFrame(
-    {"Current Asset Price": [current_asset_price], 
-     "Strike Price": [strike_price],
+    {"Current Asset Price ($)": [current_asset_price], 
+     "Strike Price ($)": [strike_price],
      "Time to Maturity (Years)": [maturity_time],
      "Volatility (σ)": [volatility],
      "Risk-Free Interest Rate": [risk_free_interest_rate]
@@ -51,3 +53,10 @@ d2 = d1 - volatility * np.sqrt(maturity_time)
 # print(d2)
 call_value = current_asset_price * ss.norm.cdf(d1) - strike_price * np.exp(-risk_free_interest_rate * maturity_time) * ss.norm.cdf(d2)
 # print(call_value)
+put_value = strike_price * np.exp(-risk_free_interest_rate * maturity_time) * ss.norm.cdf(-d2) - current_asset_price * ss.norm.cdf(-d1)
+
+
+## Interactive Heatmap
+col1, col2 = st.columns(2, gap="small", border=True)
+col1.metric("CALL Value", "$" + str(round(call_value, 2)))
+col2.metric("PUT Value", "$" + str(round(put_value, 2)))
