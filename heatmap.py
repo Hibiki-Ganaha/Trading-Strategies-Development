@@ -1,18 +1,20 @@
 import numpy as np
 import pandas as pd
 import scipy.stats as ss
+import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
 
 ### Data
 df = pd.read_csv("AAPL History")
+df.index = df.index.astype("datetime64[s, UTC-05:00]")
 data = np.random.random((12,12))
 # print(data)
 
 
 ### Side Bar
 ## Heading
-st.sidebar.markdown("# 📊 Black-Scholes Model")
+st.sidebar.title("📊 Black-Scholes Model")
 st.sidebar.markdown(":green[Created By:]")
 col1, col2 = st.sidebar.columns(2, gap=None)
 col1.image("linkedinlogo.png", width=30)
@@ -54,9 +56,13 @@ d2 = d1 - volatility * np.sqrt(maturity_time)
 call_value = current_asset_price * ss.norm.cdf(d1) - strike_price * np.exp(-risk_free_interest_rate * maturity_time) * ss.norm.cdf(d2)
 # print(call_value)
 put_value = strike_price * np.exp(-risk_free_interest_rate * maturity_time) * ss.norm.cdf(-d2) - current_asset_price * ss.norm.cdf(-d1)
-
-
-## Interactive Heatmap
 col1, col2 = st.columns(2, gap="small", border=True)
 col1.metric("CALL Value", "$" + str(round(call_value, 2)))
 col2.metric("PUT Value", "$" + str(round(put_value, 2)))
+
+## Interactive Heatmap
+np.linspace(min_volatility, max_volatility, 10)
+np.linspace(min_spot_price, max_spot_price, 10)
+
+sns.heatmap(np.random.rand(10,10))
+plt.show()
