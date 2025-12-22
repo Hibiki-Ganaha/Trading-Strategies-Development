@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import scipy.stats as ss
 import matplotlib.pyplot as plt
 import streamlit as st
 
@@ -13,7 +14,7 @@ data = np.random.random((12,12))
 ## Heading
 st.sidebar.markdown("# 📊 Black-Scholes Model")
 st.sidebar.markdown(":green[Created By:]")
-st.sidebar.badge("Alexander Seo", color="grey")
+st.sidebar.badge("Alexander Seo", color="blue")
 
 ## Inputs
 current_asset_price = st.sidebar.number_input("Current Asset Price", min_value=0.00, value=100.00, step=1.00)
@@ -31,6 +32,7 @@ max_volatility = st.sidebar.slider("Max. Volatility for Heatmap", min_value=0.00
 
 
 ### Main Page
+## Header
 st.title("Black-Scholes Pricing Model")
 var_df = pd.DataFrame(
     {"Current Asset Price": [current_asset_price], 
@@ -41,5 +43,11 @@ var_df = pd.DataFrame(
      }
 )
 st.write(var_df)
-# st.chat_input("Variance")
 
+## Using the Black-Scholes Model Formula: 
+d1 = (np.log(current_asset_price/strike_price) + (risk_free_interest_rate + volatility**2 / 2) * maturity_time) / (volatility * np.sqrt(maturity_time))
+# print(d1)
+d2 = d1 - volatility * np.sqrt(maturity_time)
+# print(d2)
+call_value = current_asset_price * ss.norm.cdf(d1) - strike_price * np.exp(-risk_free_interest_rate * maturity_time) * ss.norm.cdf(d2)
+# print(call_value)
