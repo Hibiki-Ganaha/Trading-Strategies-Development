@@ -69,12 +69,19 @@ def d2(current_asset_price, strike_price, risk_free_interest_rate, volatility, m
 
 # print(d2(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time))
 
-call_value = current_asset_price * ss.norm.cdf(d1(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time)) - strike_price * np.exp(-risk_free_interest_rate * maturity_time) * ss.norm.cdf(d2(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time))
-# print(call_value)
-put_value = strike_price * np.exp(-risk_free_interest_rate * maturity_time) * ss.norm.cdf(-d2(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time)) - current_asset_price * ss.norm.cdf(-d1(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time))
+def call_value(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time):
+    return current_asset_price * ss.norm.cdf(d1(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time)) - strike_price * np.exp(-risk_free_interest_rate * maturity_time) * ss.norm.cdf(d2(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time))
+
+# print(call_value(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time))
+
+def put_value(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time):
+    return strike_price * np.exp(-risk_free_interest_rate * maturity_time) * ss.norm.cdf(-d2(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time)) - current_asset_price * ss.norm.cdf(-d1(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time))
+
+# print(put_value(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time))
+
 col1, col2 = st.columns(2, gap="small", border=True)
-col1.metric("CALL Value", "$" + str(round(call_value, 2)))
-col2.metric("PUT Value", "$" + str(round(put_value, 2)))
+col1.metric("CALL Value", "$" + str(round(call_value(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time), 2)))
+col2.metric("PUT Value", "$" + str(round(put_value(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time), 2)))
 
 st.header("Options Price - Interactive Heatmap")
 st.info("Explore how option prices fluctuate with varying 'Spot Prices and Volatility' levels using interactive heatmap parameters, all while maintaining a constant 'Strike Price'.")
@@ -82,8 +89,10 @@ st.info("Explore how option prices fluctuate with varying 'Spot Prices and Volat
 ## Interactive Heatmap
 vol = np.round(np.linspace(min_volatility, max_volatility, 10), 2)
 spot = np.round(np.linspace(min_spot_price, max_spot_price, 10), 2)
+# print(vol)
+# print(spot)
 
-call_vals = current_asset_price * ss.norm.cdf(d1(spot[np.newaxis, :], strike_price, risk_free_interest_rate, vol[:, np.newaxis], maturity_time)) - strike_price * np.exp(-risk_free_interest_rate * maturity_time) * ss.norm.cdf(d2(spot[np.newaxis, :], strike_price, risk_free_interest_rate, vol[:, np.newaxis], maturity_time))
+# call_vals = current_asset_price * ss.norm.cdf(d1(spot[np.newaxis, :], strike_price, risk_free_interest_rate, vol[:, np.newaxis], maturity_time)) - strike_price * np.exp(-risk_free_interest_rate * maturity_time) * ss.norm.cdf(d2(spot[np.newaxis, :], strike_price, risk_free_interest_rate, vol[:, np.newaxis], maturity_time))
 # call_vals =  spot[np.newaxis, :] + vol[:, np.newaxis]
 # print(ss.norm.cdf(d1(spot[np.newaxis, :], strike_price, risk_free_interest_rate, vol[:, np.newaxis], maturity_time)))
 # print(ss.norm.cdf(d2(spot[np.newaxis, :], strike_price, risk_free_interest_rate, vol[:, np.newaxis], maturity_time)))
@@ -92,15 +101,22 @@ call_vals = current_asset_price * ss.norm.cdf(d1(spot[np.newaxis, :], strike_pri
 # print(call_vals)
 # print(d1(current_asset_price, spot[:, np.newaxis], risk_free_interest_rate, vol[np.newaxis:, ], maturity_time))
 
+# spot = np.linspace(80, 120, 10)
+# vol = np.linspace(.1, .3, 10)
+# print(vol)
+# print(spot)
+
+call_vals = call_value(spot[np.newaxis, :], strike_price, risk_free_interest_rate, vol[:, np.newaxis], maturity_time)
+
 df = round(pd.DataFrame(call_vals, index=vol, columns=spot), 2)
-# print(df)
+print(df)
 
 fig, ax = plt.subplots()
 sns.heatmap(df, annot=True, annot_kws={'size': 8}, fmt=".2f", cmap="viridis")
 plt.title("CALL")
 plt.xlabel("Spot Price")
 plt.ylabel("Volatility")
-# plt.show()
+plt.show()
 
 col1, col2 = st.columns(2)
 col1.header("Call Price Heatmap")
