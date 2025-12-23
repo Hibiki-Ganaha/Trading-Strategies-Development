@@ -3,3 +3,4 @@ pandas
 scipy
 seaborn
 matplotlib
+pip>=25.3
