@@ -35,8 +35,8 @@ risk_free_interest_rate = st.sidebar.number_input("Risk-Free Interest Rate", min
 st.sidebar.badge("Heatmap Parameters", color="grey")
 min_spot_price = st.sidebar.number_input("Min. Spot Price", min_value=0.00, value=80.00, step=1.00)
 max_spot_price = st.sidebar.number_input("Max. Spot Price", min_value=0.00, value=120.00, step=1.00)
-min_volatility = st.sidebar.slider("Min. Volatility for Heatmap", min_value=0.00, value=.10, max_value=1.00)
-max_volatility = st.sidebar.slider("Max. Volatility for Heatmap", min_value=0.00, value=.30, max_value=1.00)
+min_volatility = st.sidebar.slider("Min. Volatility for Heatmap", min_value=0.01, value=.10, max_value=1.00)
+max_volatility = st.sidebar.slider("Max. Volatility for Heatmap", min_value=0.01, value=.30, max_value=1.00)
 
 
 ### Main Page
