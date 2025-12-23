@@ -1,5 +1,5 @@
 numpy
 pandas
-scipy.stats
+scipy
 seaborn
 matplotlib
