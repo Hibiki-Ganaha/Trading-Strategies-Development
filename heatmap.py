@@ -21,7 +21,7 @@ st.sidebar.markdown(":green[Created By:]")
 # col1, col2 = st.sidebar.columns(2, gap=None)
 # col1.image("linkedinlogo.png", width=30)
 # col2.page_link("https://www.linkedin.com/in/alexanderminhseo/", label="Alexander Seo")
-st.sidebar.markdown(f"<a href='{'https://www.linkedin.com/in/alexanderminhseo/'}' target='_blank' style='text-decoration: none; color: inherit;'><img src='Trading-Strategies-Development/linkedinlogo.png' width='20' height='20' style='vertical-align: middle; margin-right: 10px;'>`Alexander Seo`</a>", unsafe_allow_html=True)
+st.sidebar.markdown(f"<a href='{'https://www.linkedin.com/in/alexanderminhseo/'}' target='_blank' style='text-decoration: none; color: inherit;'><img src='https://cdn-icons-png.flaticon.com/512/174/174857.png' width='20' height='20' style='vertical-align: middle; margin-right: 10px;'>`Alexander Seo`</a>", unsafe_allow_html=True)
 
 
 ## Inputs
