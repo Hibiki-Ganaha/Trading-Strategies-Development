@@ -5,6 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
 
+
 ### Data
 df = pd.read_csv("AAPL History")
 df.index = df.index.astype("datetime64[s, UTC-05:00]")
@@ -17,9 +18,11 @@ data = np.random.random((12,12))
 st.set_page_config(layout="wide")
 st.sidebar.title("📊 Black-Scholes Model")
 st.sidebar.markdown(":green[Created By:]")
-col1, col2 = st.sidebar.columns(2, gap=None)
-col1.image("linkedinlogo.png", width=30)
-col2.page_link("https://www.linkedin.com/in/alexanderminhseo/", label="Alexander Seo")
+# col1, col2 = st.sidebar.columns(2, gap=None)
+# col1.image("linkedinlogo.png", width=30)
+# col2.page_link("https://www.linkedin.com/in/alexanderminhseo/", label="Alexander Seo")
+st.sidebar.markdown(f"<a href='{'https://www.linkedin.com/in/alexanderminhseo/'}' target='_blank' style='text-decoration: none; color: inherit;'><img src='Trading-Strategies-Development/linkedinlogo.png' width='20' height='20' style='vertical-align: middle; margin-right: 10px;'>`Alexander Seo`</a>", unsafe_allow_html=True)
+
 
 ## Inputs
 current_asset_price = st.sidebar.number_input("Current Asset Price", min_value=0.00, value=100.00, step=1.00)
