@@ -3,4 +3,5 @@ pandas
 scipy
 seaborn
 matplotlib
+streamlit
 pip>=25.3
