@@ -36,7 +36,7 @@ st.sidebar.badge("Heatmap Parameters", color="grey")
 min_spot_price = st.sidebar.number_input("Min. Spot Price", min_value=0.00, value=80.00, step=1.00)
 max_spot_price = st.sidebar.number_input("Max. Spot Price", min_value=0.00, value=120.00, step=1.00)
 min_volatility = st.sidebar.slider("Min. Volatility for Heatmap", min_value=0.01, value=.10, max_value=1.00)
-max_volatility = st.sidebar.slider("Max. Volatility for Heatmap", min_value=0.01, value=.30, max_value=1.00)
+max_volatility = st.sidebar.slider("Max. Volatility for Heatmap", min_value=0.01, value=.50, max_value=1.00)
 
 
 ### Main Page
@@ -107,17 +107,34 @@ spot = np.round(np.linspace(min_spot_price, max_spot_price, 10), 2)
 # print(spot)
 
 call_vals = call_value(spot[np.newaxis, :], strike_price, risk_free_interest_rate, vol[:, np.newaxis], maturity_time)
+put_vals = put_value(spot[np.newaxis, :], strike_price, risk_free_interest_rate, vol[:, np.newaxis], maturity_time)
 
-df = round(pd.DataFrame(call_vals, index=vol, columns=spot), 2)
-print(df)
+df_call = round(pd.DataFrame(call_vals, index=vol, columns=spot), 2)
+# print(df)
 
-fig, ax = plt.subplots()
-sns.heatmap(df, annot=True, annot_kws={'size': 8}, fmt=".2f", cmap="viridis")
+fig1, ax1 = plt.subplots()
+sns.heatmap(df_call, annot=True, annot_kws={'size': 8}, fmt=".2f", cmap="viridis", square=True, robust=True)
 plt.title("CALL")
 plt.xlabel("Spot Price")
 plt.ylabel("Volatility")
+plt.xticks(fontsize=8, rotation=0)
+plt.yticks(fontsize=8)
 plt.show()
 
 col1, col2 = st.columns(2)
 col1.header("Call Price Heatmap")
-col1.pyplot(fig)
+col1.pyplot(fig1)
+
+
+df_put = round(pd.DataFrame(put_vals, index=vol, columns=spot), 2)
+fig2, ax2 = plt.subplots()
+sns.heatmap(df_put, annot=True, annot_kws={'size': 8}, fmt=".2f", cmap="viridis", square=True, robust=True)
+plt.title("PUT")
+plt.xlabel("Spot Price")
+plt.ylabel("Volatility")
+plt.xticks(fontsize=8, rotation=0)
+plt.yticks(fontsize=8)
+plt.show()
+
+col2.header("Call Price Heatmap")
+col2.pyplot(fig2)
