@@ -84,7 +84,7 @@ col1.metric("CALL Value", "$" + str(round(call_value(current_asset_price, strike
 col2.metric("PUT Value", "$" + str(round(put_value(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time), 2)))
 
 st.header("Options Price - Interactive Heatmap")
-st.info("Explore how option prices fluctuate with varying 'Spot Prices and Volatility' levels using interactive heatmap parameters, all while maintaining a constant 'Strike Price'.")
+st.info('Explore how option prices fluctuate with varying "Spot Prices and Volatility" levels using interactive heatmap parameters, all while maintaining a constant "Strike Price".')
 
 ## Interactive Heatmap
 vol = np.round(np.linspace(min_volatility, max_volatility, 10), 2)
@@ -117,8 +117,8 @@ sns.heatmap(df_call, annot=True, annot_kws={'size': 8}, fmt=".2f", cmap="viridis
 plt.title("CALL")
 plt.xlabel("Spot Price")
 plt.ylabel("Volatility")
-plt.xticks(fontsize=8, rotation=0)
-plt.yticks(fontsize=8)
+plt.xticks(fontsize=6, rotation=0)
+plt.yticks(fontsize=6)
 plt.show()
 
 col1, col2 = st.columns(2)
@@ -132,8 +132,8 @@ sns.heatmap(df_put, annot=True, annot_kws={'size': 8}, fmt=".2f", cmap="viridis"
 plt.title("PUT")
 plt.xlabel("Spot Price")
 plt.ylabel("Volatility")
-plt.xticks(fontsize=8, rotation=0)
-plt.yticks(fontsize=8)
+plt.xticks(fontsize=6, rotation=0)
+plt.yticks(fontsize=6)
 plt.show()
 
 col2.header("Call Price Heatmap")
