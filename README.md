@@ -1,3 +1,8 @@
+# Finished:
+Interactive web application where you can adjust current asset and strike price, time to maturity, volatility, and risk-free interest rate to get the calculate call and put value according to the Black-Scholes model.
+
+
+# In Progress:
 Using Python to create trading strategies, like the simple moving average and Donchian, with stock data to optimize trading signals for the best returns, and visualizing results for documentation and presentation.
 
 Testing 5 different trading strategies, equal weighted, max. Sharpe ratio, inverse variance, Markowitz optimization, robust optimization, using Python, MATLAB, and thinkorswim
