@@ -1,6 +1,7 @@
 # Finished:
-Interactive web application where you can adjust current asset and strike price, time to maturity, volatility, and risk-free interest rate to get the calculate call and put value according to the Black-Scholes model.
-
+Interactive web application where you can adjust current asset and strike price, time to maturity, volatility, and risk-free interest rate to get the calculated call and put value according to the Black-Scholes model.
+Call and put value heatmaps with adjustable min. and max. spot prices and volatility to visualize how options prices change with such parameters.
+https://interactblackscholes.streamlit.app/
 
 # In Progress:
 Using Python to create trading strategies, like the simple moving average and Donchian, with stock data to optimize trading signals for the best returns, and visualizing results for documentation and presentation.
