@@ -4,6 +4,8 @@ import scipy.stats as ss
 import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
+import requests
+import time
 
 
 ### Data
@@ -138,3 +140,9 @@ plt.show()
 
 col2.header("Call Price Heatmap")
 col2.pyplot(fig2)
+
+
+### Keeping App Awake
+while True:
+    requests.get("https://interactblackscholes.streamlit.app/")
+    time.sleep(3600)
