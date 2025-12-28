@@ -141,8 +141,3 @@ plt.show()
 col2.header("Call Price Heatmap")
 col2.pyplot(fig2)
 
-
-### Keeping App Awake
-while True:
-    requests.get("https://interactblackscholes.streamlit.app/")
-    time.sleep(3600)
