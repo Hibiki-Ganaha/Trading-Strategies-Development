@@ -4,5 +4,5 @@ scipy
 seaborn
 matplotlib
 streamlit
-pip=25.0
+pip=25.3
 altair<5
