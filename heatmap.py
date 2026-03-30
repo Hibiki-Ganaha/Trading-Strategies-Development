@@ -138,6 +138,6 @@ plt.xticks(fontsize=6, rotation=0)
 plt.yticks(fontsize=6)
 plt.show()
 
-col2.header("Call Price Heatmap")
+col2.header("Put Price Heatmap")
 col2.pyplot(fig2)
 
