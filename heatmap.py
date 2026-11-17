@@ -86,7 +86,7 @@ col1.metric("CALL Value", "$" + str(round(call_value(current_asset_price, strike
 col2.metric("PUT Value", "$" + str(round(put_value(current_asset_price, strike_price, risk_free_interest_rate, volatility, maturity_time), 2)))
 
 st.header("Options Price - Interactive Heatmap")
-st.info('Explore how option prices fluctuate with varying "Spot Prices and Volatility" levels using interactive heatmap parameters, all while maintaining a constant "Strike Price".')
+st.info('Explore how option prices fluctuate with varying Spot Prices and Volatility levels using interactive heatmap parameters, all while maintaining a constant Strike Price.')
 
 ## Interactive Heatmap
 vol = np.round(np.linspace(min_volatility, max_volatility, 10), 2)
