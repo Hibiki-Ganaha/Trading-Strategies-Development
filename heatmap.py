@@ -112,34 +112,65 @@ spot = np.round(np.linspace(min_spot_price, max_spot_price, 10), 2)
 call_vals = call_value(spot[np.newaxis, :], strike_price, risk_free_interest_rate, vol[:, np.newaxis], maturity_time)
 put_vals = put_value(spot[np.newaxis, :], strike_price, risk_free_interest_rate, vol[:, np.newaxis], maturity_time)
 
-df_call = round(pd.DataFrame(call_vals, index=vol, columns=spot), 2)
-# print(df)
+# df_call = round(pd.DataFrame(call_vals, index=vol, columns=spot), 2)
+# # print(df)
 
-fig1, ax1 = plt.subplots()
-sns.heatmap(df_call, annot=True, annot_kws={'size': 20 / np.sqrt(len(df_call))}, fmt=".2f", cmap="viridis", square=True, robust=True)
-plt.title("CALL")
-plt.xlabel("Spot Price")
-plt.ylabel("Volatility")
-plt.xticks(fontsize=6, rotation=0)
-plt.yticks(fontsize=6)
-plt.show()
+# fig1, ax1 = plt.subplots()
+# sns.heatmap(df_call, annot=True, annot_kws={'size': 20 / np.sqrt(len(df_call))}, fmt=".2f", cmap="viridis", square=True, robust=True)
+# plt.title("CALL")
+# plt.xlabel("Spot Price")
+# plt.ylabel("Volatility")
+# plt.xticks(fontsize=6, rotation=0)
+# plt.yticks(fontsize=6)
+# plt.show()
+
+# col1, col2 = st.columns(2)
+# col1.header("Call Price Heatmap")
+# col1.pyplot(fig1)
+
+
+# df_put = round(pd.DataFrame(put_vals, index=vol, columns=spot), 2)
+# fig2, ax2 = plt.subplots()
+# sns.heatmap(df_put, annot=True, annot_kws={'size': 20 / np.sqrt(len(df_put))}, fmt=".2f", cmap="viridis", square=True, robust=True)
+# plt.title("PUT")
+# plt.xlabel("Spot Price")
+# plt.ylabel("Volatility")
+# plt.xticks(fontsize=6, rotation=0)
+# plt.yticks(fontsize=6)
+# plt.show()
+
+# col2.header("Put Price Heatmap")
+# col2.pyplot(fig2)
+
+
+df_call = pd.DataFrame(call_vals, index=vol, columns=spot)
+df_put = pd.DataFrame(put_vals, index=vol, columns=spot)
 
 col1, col2 = st.columns(2)
-col1.header("Call Price Heatmap")
-col1.plotly_chart(fig1)
 
+for column, prices, title in [
+    (col1, df_call, "Call Price Heatmap"),
+    (col2, df_put, "Put Price Heatmap"),
+]:
+    fig, ax = plt.subplots(figsize=(8, 6))
 
-df_put = round(pd.DataFrame(put_vals, index=vol, columns=spot), 2)
-fig2, ax2 = plt.subplots()
-sns.heatmap(df_put, annot=True, annot_kws={'size': 20 / np.sqrt(len(df_put))}, fmt=".2f", cmap="viridis", square=True, robust=True)
-plt.title("PUT")
-plt.xlabel("Spot Price")
-plt.ylabel("Volatility")
-plt.xticks(fontsize=6, rotation=0)
-plt.yticks(fontsize=6)
-plt.show()
+    sns.heatmap(
+        prices,
+        ax=ax,
+        annot=True,
+        annot_kws={"size": 8},
+        fmt=".2f",
+        cmap="viridis",
+        square=True,
+        robust=True,
+    )
 
-col2.header("Put Price Heatmap")
-col2.plotly_chart(fig2, theme="streamlit")
+    ax.set_xlabel("Spot Price")
+    ax.set_ylabel("Volatility")
+    ax.tick_params(axis="x", labelsize=8, labelrotation=0)
+    ax.tick_params(axis="y", labelsize=8, labelrotation=0)
+    fig.tight_layout()
 
-# st.plotly_chart(fig2)
+    column.header(title)
+    column.pyplot(fig)
+    plt.close(fig)
