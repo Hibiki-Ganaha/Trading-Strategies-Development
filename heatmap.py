@@ -4,6 +4,7 @@ import scipy.stats as ss
 import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
+import plotly as ply
 import requests
 import time
 
@@ -125,7 +126,7 @@ plt.show()
 
 col1, col2 = st.columns(2)
 col1.header("Call Price Heatmap")
-col1.pyplot(fig1)
+col1.plotly_chart(fig1)
 
 
 df_put = round(pd.DataFrame(put_vals, index=vol, columns=spot), 2)
@@ -139,5 +140,6 @@ plt.yticks(fontsize=6)
 plt.show()
 
 col2.header("Put Price Heatmap")
-col2.pyplot(fig2)
+col2.plotly_chart(fig2, theme="streamlit")
 
+# st.plotly_chart(fig2)
