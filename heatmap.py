@@ -146,31 +146,39 @@ put_vals = put_value(spot[np.newaxis, :], strike_price, risk_free_interest_rate,
 df_call = pd.DataFrame(call_vals, index=vol, columns=spot)
 df_put = pd.DataFrame(put_vals, index=vol, columns=spot)
 
+import plotly.graph_objects as go
+
 col1, col2 = st.columns(2)
 
-for column, prices, title in [
-    (col1, df_call, "Call Price Heatmap"),
-    (col2, df_put, "Put Price Heatmap"),
+for column, values, title, key in [
+    (col1, call_vals, "Call Price Heatmap", "call_heatmap"),
+    (col2, put_vals, "Put Price Heatmap", "put_heatmap"),
 ]:
-    fig, ax = plt.subplots(figsize=(8, 6))
-
-    sns.heatmap(
-        prices,
-        ax=ax,
-        annot=True,
-        annot_kws={"size": 8},
-        fmt=".2f",
-        cmap="viridis",
-        square=True,
-        robust=True,
+    fig = go.Figure(
+        data=go.Heatmap(
+            x=spot.tolist(),
+            y=vol.tolist(),
+            z=values.tolist(),
+            colorscale="Viridis",
+            texttemplate="%{z:.2f}",
+            textfont={"size": 10},
+            colorbar={"title": "Price ($)"},
+            hovertemplate=(
+                "Spot: $%{x:.2f}<br>"
+                "Volatility: %{y:.0%}<br>"
+                "Option price: $%{z:.2f}"
+                "<extra></extra>"
+            ),
+        )
     )
 
-    ax.set_xlabel("Spot Price")
-    ax.set_ylabel("Volatility")
-    ax.tick_params(axis="x", labelsize=8, labelrotation=0)
-    ax.tick_params(axis="y", labelsize=8, labelrotation=0)
-    fig.tight_layout()
+    fig.update_layout(
+        xaxis_title="Spot Price ($)",
+        yaxis_title="Volatility",
+        height=450,
+        margin=dict(l=40, r=20, t=20, b=40),
+    )
+    fig.update_yaxes(tickformat=".0%")
 
     column.header(title)
-    column.pyplot(fig)
-    plt.close(fig)
+    column.plotly_chart(fig, use_container_width=True, key=key)
